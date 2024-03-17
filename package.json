@@ -1,0 +1,17 @@
+{
+  "name": "backend-mega-project",
+  "version": "1.0.0",
+  "description": "A backend mega project from chai aur code channel - youtube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "backend",
+    "chai",
+    "youtube"
+  ],
+  "author": "Edson Sooraj Dsouza",
+  "license": "ISC"
+}
