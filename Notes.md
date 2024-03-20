@@ -1,3 +1,6 @@
+# Data Modelling
+[Model link](https://app.eraser.io/workspace/5G0yWYx8zbjcswgnTjwY)
+
 # DB Connection
 
 - To connect to the database IP Address, Username-Password and a String is required.
@@ -201,3 +204,71 @@ class apiResponse {
 
 export { apiResponse };
 ```
+
+# Does MongoDB use BSON or JSON?
+MongoDB stores data in BSON format both internally, and over the network, but that doesn’t mean you can’t think of MongoDB as a JSON database. Anything you can represent in JSON can be natively stored in MongoDB, and retrieved just as easily in JSON.
+
+When using the MongoDB driver for your favorite programming language, you work with the native data structures for that language. The driver will take care of converting the data to BSON and back when querying the database.
+
+Unlike systems that store JSON as string-encoded values, or binary-encoded blobs, MongoDB uses BSON to offer powerful indexing and querying features on top of the web’s most popular data format.
+
+[More information](https://www.mongodb.com/json-and-bson)
+
+# Making fiels searchable
+If any fields are made to be searchable, make it's index _true_.
+```javascript
+username: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true, // here
+    },
+```
+
+> [!Note]
+> Making _index: true_ can make the website slow or can be end up in the expensive side. So be careful before making any fields searchable.
+
+# MongoDB Aggregation Pipeline
+- [npm package](https://www.npmjs.com/package/mongoose-aggregate-paginate-v2)
+- [Documentation](https://www.mongodb.com/docs/manual/core/aggregation-pipeline/)
+
+# bcrypt (or bcryptjs) and JSON Web Token(jwt)
+- Bcrypt which is similar to BcryptJS is a npm package to hash passwords. 
+
+  [bcrypt npm package](https://www.npmjs.com/package/bcrypt)
+
+  [bcryptjs npm package](https://www.npmjs.com/package/bcryptjs)
+
+- JWT is a npm package for getting npm tokens
+  [npm package](https://www.npmjs.com/package/jsonwebtoken)
+
+# Mongoose Pre Hook
+Just because bcrypt package is installed, doesn't mean it encrypts the sensitive datas automatically. We need to use a Mongoose Middleware Hook called _[Pre](https://mongoosejs.com/docs/middleware.html#pre)_
+
+When the user wants to store any data in the MongoDB, just before the data gets saved, we can run the Pre Hook to encryt the data.
+
+# Encrypting password (aka middleware)
+Two scenarios:
+- If the user is creating a new account, he/she will write the password and submit the profile . When clicked on the save button; the password needs be saved in an encrypted format.
+  ```javascript
+  userSchema.pre("save", async function (next) {
+  this.password = bcrypt.hash(this.password, 10); // 10 rounds
+  next();
+  });
+  ```
+- The above code is written in such a way that if the user has already created an account but wants to change/update the avatar, when clicked on the save button, the password will get saved again. This is a major issue. Therefore a condition should be written in such a way that the password needs to be saved in the database only if the password field is modified.
+  ```javascript
+  userSchema.pre("save", async function (next) {
+  if(!this.isModified("password")) return next();
+  this.password = bcrypt.hash(this.password, 10);
+  next();
+  });
+  ```
+
+> [!Note]
+> If _next_ is used in the callback function as a parameter, then it is a middleware
+
+# JWT
+JWT is a bearer token. In Layman words, who ever has this JWT Bearer Token, the corresponding data will be sent to them.
