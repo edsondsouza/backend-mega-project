@@ -272,3 +272,72 @@ Two scenarios:
 
 # JWT
 JWT is a bearer token. In Layman words, who ever has this JWT Bearer Token, the corresponding data will be sent to them.
+
+# HTTP (Hyper Text Transfer Protocol) | HTTP Methods | HTTP Headers
+
+[Notes](https://www.linkedin.com/posts/hiteshchoudhary_http-crash-course-notes-activity-7130464152002658304-52df/)
+
+## What are HTTP Headers?
+Metadata ==> Key-Value sent along with request and response.
+
+### Where HTTP Headers are used?
+- Caching, authentication, manage state
+- X-prefix ==> 2012(X-deprecated)
+
+### Types of Headers
+- Request Headers ==> from Client
+- Response Headers ==> from Server
+- Representation Headers ==> encoding/compression
+- Payload Headers ==> data
+
+### Most common Headers
+- Accept: application/json
+- User-Agent
+- Authorization
+- Content-Type
+- Cookie
+- Cache-Control
+
+### CORS
+- Access-Control-Allow-Origin
+- Access-Control-Allow-Credentials
+- Access-Control-Allow-Method
+
+### Security
+- Cross-Origin-Embedders-Policy
+- Cross-Origin-Opener-Policy
+- Content-Security-Policy
+- X-XSS-Protection
+
+## What are HTTP Methods?
+Basic set of operations that can be used to interact with server.
+
+- GET => Retrive a resource
+- HEAD => No message body (response headers only)
+- OPTIONS => What operations are available
+- TRACE => Loopback test (get same data)
+- DELETE => Remove a resource
+- PUT => Replace a resource
+- POST => Interact with resource (mostly add)
+- PATCH => Change part of a resource
+
+## HTTP Status Code
+- 1xx => Informational
+- 2xx => Success
+- 3xx => Redirection
+- 4xx => Client Error
+- 5xx => Server Error
+---
+- 100 => Continue
+- 102 => Processing
+- 200 => OK
+- 201 => Created
+- 202 => Accepted
+- 307 => Temporary Redirect
+- 308 => Permanent Redirect
+- 400 => Bad Request
+- 401 => Unauthorized
+- 402 => Payment Required
+- 404 => Not Found
+- 500 => Internal Server Error
+- 504 => Gateway Timeout
