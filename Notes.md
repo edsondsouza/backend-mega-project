@@ -342,4 +342,17 @@ Basic set of operations that can be used to interact with server.
 - 500 => Internal Server Error
 - 504 => Gateway Timeout
 
+# Logic Building 
+The more controllers one writes, the better they become in logic building.
+
+## Steps to improve logic building.
+Take a bigger problem and split it into multiple smaller problems. Solve these smaller problems one by one.
+
 # Router and Controller
+
+# Exporting issues
+There are two main ways in which a file can be imported and exported.
+
+1) A file can be imported like `import userRouter from "./routes/user.routes.js";` only when the file is **exported default**. Like this `export default router;`
+
+2) A file can be imported like `import { registerUser } from "../controllers/user.controller.js";` only when the file is **not exported default**. Like this `export { registerUser };`
