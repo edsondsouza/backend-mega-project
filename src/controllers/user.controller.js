@@ -10,28 +10,38 @@ const registerUser = asyncHandler(async (req, res) => {
   // });
 
   // get user details from frontend
-  const { fullname, email, username, password } = req.body;
+  const { fullName, email, username, password } = req.body;
   // console.log("email: ", email);
 
-  // validation
+  // validation: is empty?
   if (
-    [fullname, email, username, password].some((field) => field?.trim() === "")
+    [fullName, email, username, password].some((field) => field?.trim() === "")
   ) {
     throw new apiError(400, "All fields are required");
   }
 
   // check if user/email exits
-  const existedUser = User.findOne({
+  const existedUser = await User.findOne({
     $or: [{ username }, { email }], // check using the operator in DB
   });
 
   if (existedUser) {
     throw new apiError(409, "User with email or username already exits");
   }
+  // console.log(req.files);
 
   // check for images, handling images
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+  let coverImageLocalPath;
+  if (
+    req.files &&
+    Array.isArray(req.files.coverImage) &&
+    req.files.coverImage.length > 0
+  ) {
+    coverImageLocalPath = req.files.coverImage[0].path;
+  }
 
   // check if avatar is available
   if (!avatarLocalPath) {
@@ -49,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // user entry in DB
   const user = await User.create({
-    fullname,
+    fullName,
     avatar: avatar.url,
     coverImage: coverImage?.url || "", // validation for coverImage
     email,
