@@ -356,3 +356,35 @@ There are two main ways in which a file can be imported and exported.
 1) A file can be imported like `import userRouter from "./routes/user.routes.js";` only when the file is **exported default**. Like this `export default router;`
 
 2) A file can be imported like `import { registerUser } from "../controllers/user.controller.js";` only when the file is **not exported default**. Like this `export { registerUser };`
+
+# Steps for user registration
+1) Get user details from frontend (depends on how data modelling is designed)
+
+2) Validation - not empty
+
+3) Chech if user already exits: username, email
+
+4) Check for images, check for avatar
+
+5) upload them to cloudinary, avatar
+
+6) Create user object - create entry in DB
+
+7) Remove password and refresh token field from response
+
+8) Check for user creation
+
+9) Return response
+
+# Check if the response is received from postman
+Code
+```javascript
+const { fullname, email, username, password } = req.body;
+console.log("email: ", email);
+```
+Postman
+
+![postman](image.png)
+
+Output will be displayed in terminal/console
+![terminal](image-1.png)
